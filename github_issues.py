@@ -13,11 +13,33 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-import argparse
 from github import Github
 
-parser = argparse.ArgumentParser()
-
+# Here are the keys for a GitHub issue:
+# 'labels'
+# 'number'
+# 'assignee'
+# 'repository_url'
+# 'closed_at'
+# 'id'
+# 'title'
+# 'comments'
+# 'state'
+# 'body'
+# 'events_url'
+# 'labels_url'
+# 'author_association'
+# 'comments_url'
+# 'html_url'
+# 'updated_at'
+# 'node_id'
+# 'user'
+# 'milestone'
+# 'closed_by'
+# 'locked'
+# 'url'
+# 'created_at'
+# 'assignees'
 class GitHubIssueQuery(object):
 
     def __init__(self, repository, username, password):
@@ -46,6 +68,4 @@ class GitHubIssueQuery(object):
         issues = self.query(owner=owner, state=state)
         for issue in issues:
             raw_issue = issue.raw_data
-            # Need to replace URL with one user can access
-            url = raw_issue['url'].replace('api.','').replace('repos','')
-            print "%s %s" % (raw_issue['number'], url)
+            print "%s %s" % (raw_issue['number'], raw_issue['html_url'])
