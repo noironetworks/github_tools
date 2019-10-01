@@ -25,12 +25,12 @@ def run():
     parser.add_argument("--password", "-p", help="Password for github account")
     parser.add_argument("--owner", "-o", default="", help="Owner for the issue")
     parser.add_argument("--state", "-s", default="open", help="State for the issue (open or closed)")
-    parser.add_argument("--repository", "-r", default="noironetworks",
-                        help="Repository for github account (default is noironetworks)")
+    parser.add_argument("--organization", "-r", default="noironetworks",
+                        help="Organization for github account (default is noironetworks)")
     args = parser.parse_args()
     querier = GitHubIssueQuery(username=args.username,
                                password=args.password,
-                               repository=args.repository)
+                               organization=args.organization)
     querier.show_issues(owner=args.owner, state=args.state)
 
 if __name__ == '__main__':
