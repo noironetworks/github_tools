@@ -7,7 +7,7 @@ as needed.
 
 To run the github issues tool, use:
 
-   $ python github_cli.py -u <github usernmame> -p <github password> -o <username to query> -s <state of bug (open|closed)>
+    $ python github_cli.py -u \<github usernmame\> -p \<github password\> -o \<username to query\> -s \<state of bug (open|closed)\>
 
 It should provide output like the following:
 
