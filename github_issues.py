@@ -42,14 +42,17 @@ from github import Github
 # 'assignees'
 class GitHubIssueQuery(object):
 
-    def __init__(self, repository, username, password):
+    def __init__(self, organization, username, password):
 
         self.username = username
         self.password = password
-        self.repository = repository
+        self.organization = organization
 
         # using username and password
-        self.github = Github(self.username, self.password)
+        self.all_gh = Github(self.username, self.password)
+
+        # This is the org github view, for username/passsword
+        self.github = self.all_gh.get_organization(self.organization)
 
     def query(self, owner=None, state=None):
         kwargs = {}
@@ -65,7 +68,10 @@ class GitHubIssueQuery(object):
 
     def show_issues(self, owner=None, state=None):
 
-        issues = self.query(owner=owner, state=state)
-        for issue in issues:
-            raw_issue = issue.raw_data
-            print "%s %s" % (raw_issue['number'], raw_issue['html_url'])
+        all_issues = self.github.get_issues(state=state, filter='all')
+        for issue in all_issues:
+            if owner:
+                if issue.assignee and owner in issue.assignee.login:
+                    print "%s %s" % (issue.number, issue.html_url)
+            else:
+                print "%s %s" % (issue.number, issue.html_url)
